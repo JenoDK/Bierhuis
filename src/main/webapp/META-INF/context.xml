@@ -1,0 +1,6 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<Context path='/bierhuis'>
+	<Resource name='jdbc/bierhuis' type='javax.sql.DataSource'
+		driverClassName='com.mysql.jdbc.Driver' url='jdbc:mysql://localhost/bierhuis'
+		username='cursist' password='cursist' closeMethod='close' />
+</Context>
