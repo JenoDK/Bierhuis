@@ -2,6 +2,7 @@ package be.vdab.entities;
 
 import java.io.Serializable;
 import java.util.Collections;
+import java.util.LinkedHashSet;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -32,38 +33,21 @@ public class Soort implements Serializable {
 	public Soort() {
 	}
 
-	public int getSoortNr() {
-		return this.soortNr;
+	public Soort(String naam) {
+		this.naam = naam;
+		bieren = new LinkedHashSet<>();
 	}
 
-	public void setSoortNr(int soortNr) {
-		this.soortNr = soortNr;
+	public int getSoortNr() {
+		return this.soortNr;
 	}
 
 	public String getNaam() {
 		return this.naam;
 	}
 
-	public void setNaam(String naam) {
-		this.naam = naam;
-	}
-
 	public Set<Bier> getBieren() {
 		return Collections.unmodifiableSet(bieren);
-	}
-
-	public void addBier(Bier bier) {
-		bieren.add(bier);
-		if (bier.getSoort() != this) {
-			bier.setSoort(this);
-		}
-	}
-
-	public void removeBier(Bier bier) {
-		bieren.remove(bier);
-		if (bier.getSoort() == this) {
-			bier.setSoort(null);
-		}
 	}
 
 	@Override

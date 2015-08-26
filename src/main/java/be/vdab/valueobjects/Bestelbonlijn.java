@@ -46,7 +46,6 @@ public class Bestelbonlijn implements Serializable {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + aantal;
 		result = prime * result + ((bier == null) ? 0 : bier.hashCode());
 		return result;
 	}
@@ -60,8 +59,6 @@ public class Bestelbonlijn implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		Bestelbonlijn other = (Bestelbonlijn) obj;
-		if (aantal != other.aantal)
-			return false;
 		if (bier == null) {
 			if (other.bier != null)
 				return false;

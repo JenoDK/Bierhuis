@@ -2,6 +2,7 @@ package be.vdab.entities;
 
 import java.io.Serializable;
 import java.util.Collections;
+import java.util.LinkedHashSet;
 import java.util.Set;
 
 import javax.persistence.CollectionTable;
@@ -14,6 +15,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.Table;
+import javax.validation.Valid;
+
+import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.NotBlank;
+import org.hibernate.validator.constraints.SafeHtml;
 
 import be.vdab.valueobjects.Adres;
 import be.vdab.valueobjects.Bestelbonlijn;
@@ -28,17 +34,26 @@ public class Bestelbon implements Serializable {
 	@Column(unique = true, nullable = false)
 	private int bonNr;
 
-	@Column(nullable = false, length = 50)
+	@NotBlank
+	@Length(min = 1, max = 50)
+	@SafeHtml
+	@Column(nullable = false)
 	private String naam;
 
+	@Valid
 	@Embedded
 	private Adres adres;
 
 	@ElementCollection
 	@CollectionTable(name = "bestelbonlijnen", joinColumns = @JoinColumn(name = "BonNr"))
-	private Set<Bestelbonlijn> bestelbonlijnen;
+	private Set<Bestelbonlijn> bestelbonlijnen = new LinkedHashSet<>();
 
 	public Bestelbon() {
+	}
+
+	public Bestelbon(String naam, Adres adres) {
+		this.naam = naam;
+		this.adres = adres;
 	}
 
 	public int getBonNr() {

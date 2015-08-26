@@ -5,6 +5,9 @@ import java.math.BigDecimal;
 
 import javax.persistence.*;
 
+import org.springframework.format.annotation.NumberFormat;
+import org.springframework.format.annotation.NumberFormat.Style;
+
 import be.vdab.valueobjects.Adres;
 
 import java.util.Collections;
@@ -28,6 +31,8 @@ public class Brouwer implements Serializable {
 	@Column(nullable = false, length = 50)
 	private String naam;
 
+	@NumberFormat(style = Style.NUMBER)
+	@Column(precision = 10, scale = 2)
 	private BigDecimal omzet;
 
 	@Embedded
@@ -51,50 +56,20 @@ public class Brouwer implements Serializable {
 		return this.brouwerNr;
 	}
 
-	public void setBrouwerNr(long brouwerNr) {
-		this.brouwerNr = brouwerNr;
-	}
-
 	public String getNaam() {
 		return this.naam;
-	}
-
-	public void setNaam(String naam) {
-		this.naam = naam;
 	}
 
 	public BigDecimal getOmzet() {
 		return this.omzet;
 	}
 
-	public void setOmzet(BigDecimal omzet) {
-		this.omzet = omzet;
-	}
-
 	public Adres getAdres() {
 		return adres;
 	}
 
-	public void setAdres(Adres adres) {
-		this.adres = adres;
-	}
-
 	public Set<Bier> getBieren() {
 		return Collections.unmodifiableSet(bieren);
-	}
-
-	public void addBier(Bier bier) {
-		bieren.add(bier);
-		if (bier.getBrouwer() != this) {
-			bier.setBrouwer(this);
-		}
-	}
-
-	public void removeBier(Bier bier) {
-		bieren.remove(bieren);
-		if (bier.getBrouwer() == this) {
-			bier.setBrouwer(null);
-		}
 	}
 
 	@Override

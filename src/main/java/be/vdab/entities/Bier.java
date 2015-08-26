@@ -13,6 +13,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import org.springframework.format.annotation.NumberFormat;
+import org.springframework.format.annotation.NumberFormat.Style;
+
 @Entity
 @Table(name = "bieren")
 public class Bier implements Serializable {
@@ -29,6 +32,7 @@ public class Bier implements Serializable {
 	@Column(nullable = false, length = 100)
 	private String naam;
 
+	@NumberFormat(style = Style.NUMBER)
 	@Column(nullable = false, precision = 10, scale = 2)
 	private BigDecimal prijs;
 
@@ -55,61 +59,24 @@ public class Bier implements Serializable {
 		return this.bierNr;
 	}
 
-	public void setBierNr(long bierNr) {
-		this.bierNr = bierNr;
-	}
-
 	public BigDecimal getAlcohol() {
 		return this.alcohol;
-	}
-
-	public void setAlcohol(BigDecimal alcohol) {
-		this.alcohol = alcohol;
 	}
 
 	public String getNaam() {
 		return this.naam;
 	}
 
-	public void setNaam(String naam) {
-		this.naam = naam;
-	}
-
 	public BigDecimal getPrijs() {
 		return this.prijs;
-	}
-
-	public void setPrijs(BigDecimal prijs) {
-		this.prijs = prijs;
 	}
 
 	public Brouwer getBrouwer() {
 		return this.brouwer;
 	}
 
-	public void setBrouwer(Brouwer brouwer) {
-		if (this.brouwer != null && this.brouwer.getBieren().contains(this)) {
-			this.brouwer.removeBier(this);
-		}
-		this.brouwer = brouwer;
-		if (brouwer != null && !brouwer.getBieren().contains(this)) {
-			brouwer.addBier(this);
-		}
-	}
-
 	public Soort getSoort() {
 		return soort;
-	}
-
-	public void setSoort(Soort soort) {
-		if (this.soort != null && this.soort.getBieren().contains(this)) {
-			this.soort.removeBier(this);
-		}
-		this.soort = soort;
-		if (soort != null && !soort.getBieren().contains(this)) {
-			soort.addBier(this);
-		}
-
 	}
 
 	@Override

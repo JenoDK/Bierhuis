@@ -1,0 +1,120 @@
+.mandjeTable {
+	margin: 0px;
+	padding: 0px;
+	width: 100%;
+	border: 1px solid #366b82;
+	-moz-border-radius-bottomleft: 10px;
+	-webkit-border-bottom-left-radius: 10px;
+	border-bottom-left-radius: 10px;
+	-moz-border-radius-bottomright: 10px;
+	-webkit-border-bottom-right-radius: 10px;
+	border-bottom-right-radius: 10px;
+	-moz-border-radius-topright: 10px;
+	-webkit-border-top-right-radius: 10px;
+	border-top-right-radius: 10px;
+	-moz-border-radius-topleft: 10px;
+	-webkit-border-top-left-radius: 10px;
+	border-top-left-radius: 10px;
+}
+
+.mandjeTable table {
+	border-collapse: collapse;
+	border-spacing: 0;
+	width: 100%;
+	height: 100%;
+	margin: 0px;
+	padding: 0px;
+}
+
+.mandjeTable tr:last-child td:last-child {
+	-moz-border-radius-bottomright: 10px;
+	-webkit-border-bottom-right-radius: 10px;
+	border-bottom-right-radius: 10px;
+}
+
+.mandjeTable table tr:first-child td:first-child {
+	-moz-border-radius-topleft: 10px;
+	-webkit-border-top-left-radius: 10px;
+	border-top-left-radius: 10px;
+}
+
+.mandjeTable table tr:first-child td:last-child {
+	-moz-border-radius-topright: 10px;
+	-webkit-border-top-right-radius: 10px;
+	border-top-right-radius: 10px;
+}
+
+.mandjeTable tr:last-child td:first-child {
+	-moz-border-radius-bottomleft: 10px;
+	-webkit-border-bottom-left-radius: 10px;
+	border-bottom-left-radius: 10px;
+}
+
+.mandjeTable tr:hover td {
+	background-color: #f8f8f8;
+}
+
+.mandjeTable td {
+	vertical-align: middle;
+	background-color: #f8f8f8;
+	border: 1px solid #366b82;
+	border-width: 0px 1px 1px 0px;
+	text-align: right;
+	padding: 9px;
+	font-weight: bold;
+	color: #000000;
+}
+
+.mandjeTable tr:last-child td {
+	border-width: 0px 1px 0px 0px;
+}
+
+.mandjeTable tr td:last-child {
+	border-width: 0px 0px 1px 0px;
+}
+
+.mandjeTable tr:last-child td:last-child {
+	border-width: 0px 0px 0px 0px;
+}
+
+.mandjeTable tr:first-child td {
+	background: -o-linear-gradient(bottom, #d7e7ee 5%, #d7e7ee 100%);
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, #d7e7ee
+		), color-stop(1, #d7e7ee));
+	background: -moz-linear-gradient(center top, #d7e7ee 5%, #d7e7ee 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#d7e7ee",
+		endColorstr="#d7e7ee");
+	background: -o-linear-gradient(top, #d7e7ee, d7e7ee);
+	background-color: #d7e7ee;
+	border: 0px solid #366b82;
+	text-align: center;
+	border-width: 0px 0px 1px 1px;
+	font-size: 14px;
+	font-family: Arial;
+	font-weight: bold;
+	color: #7a7a7a;
+}
+
+.mandjeTable tr:first-child:hover td {
+	background: -o-linear-gradient(bottom, #d7e7ee 5%, #d7e7ee 100%);
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, #d7e7ee
+		), color-stop(1, #d7e7ee));
+	background: -moz-linear-gradient(center top, #d7e7ee 5%, #d7e7ee 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#d7e7ee",
+		endColorstr="#d7e7ee");
+	background: -o-linear-gradient(top, #d7e7ee, d7e7ee);
+	background-color: #d7e7ee;
+}
+
+.mandjeTable tr:first-child td:first-child {
+	border-width: 0px 0px 1px 0px;
+}
+
+.mandjeTable tr:first-child td:last-child {
+	border-width: 0px 0px 1px 1px;
+}
+
+.totaalPrijs {
+	float: right;
+	margin-right: 8px;
+}

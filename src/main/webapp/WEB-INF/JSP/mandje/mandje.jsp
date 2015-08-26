@@ -7,6 +7,7 @@
 <html lang='nl'>
 <head>
 <link rel='stylesheet' href='<c:url value="/styles/generalStyle.css"/>'>
+<link rel='stylesheet' href='<c:url value="/styles/mandjeStyle.css"/>'>
 <link href='http://fonts.googleapis.com/css?family=Droid+Sans:400,700'
 	rel='stylesheet' type='text/css'>
 </head>
@@ -16,36 +17,49 @@
 
 		<div class="login-top">
 			<h2>Mandje</h2>
-		</div>
-		<div class="login-bottom">
-			<c:choose>
+	</div>
+		<div class="login-bottom"><c:choose>
 				<c:when test="${not empty bierenInMandje}">
-					<table>
-						<thead>
-							<tr>
-								<th>Bier</th>
-								<th>Prijs</th>
-								<th>Aantal</th>
-								<th>Te betalen</th>
-							</tr>
-						</thead>
-						<tbody>
-							<c:forEach items='${bierenInMandje}' var='bierInMandje'>
+					<div class="mandjeTable">
+						<table>
+							<tbody>
 								<tr>
-									<td>${bierInMandje.bier.naam}</td>
-									<td>${bierInMandje.bier.prijs}</td>
-									<td>${bierInMandje.aantal}</td>
-									<td>${bierInMandje.totaal}</td>
-								</tr>
-							</c:forEach>
+									<td>Bier</td>
+									<td>Prijs</td>
+									<td>Aantal</td>
+									<td>Te betalen</td>
+							</tr>
+								<c:forEach items='${bierenInMandje}' var='bierInMandje'>
+									<tr>
+										<td>${bierInMandje.bier.naam}</td>
+										<td>&euro;${bierInMandje.bier.prijs}</td>
+										<td>${bierInMandje.aantal}</td>
+										<td>&euro;${bierInMandje.totaal}</td>
+									</tr>
+								</c:forEach>
 						</tbody>
 					</table>
-					<p>Totaal: ${mandjeTotaal}</p>
+					</div>
+					<p class="totaalPrijs">Totaal: <strong>&euro;${mandjeTotaal}</strong></p>
+					<div class="clear"></div>
+					<c:url value='/mandje' var='url' />
+					<form:form action='${url}' commandName='bestelbon' id='toevoegform'>
+						<jsp:include page='mandjeformfields.jsp' />
+						<div class='keepme'>
+							<div class="keep-registrerenbutton"><input type='submit'
+								value='Als bestelbon bevestigen' id='toevoegknop'></div>
+							<div class="clear"></div>
+						</div>
+					</form:form>
 				</c:when>
 				<c:otherwise>
 					<h2>Mandje is leeg</h2>
 				</c:otherwise>
-			</c:choose>
-		</div>
-	</div>
+			</c:choose></div>
+</div>
+	<script>
+		document.getElementById('toevoegform').onsubmit = function() {
+			document.getElementById('toevoegknop').disabled = true;
+		};
+	</script>
 </body>

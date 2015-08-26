@@ -25,7 +25,6 @@ public class BierController {
 	// private final BierService bierService;
 	private static final String BIER_VIEW = "bieren/bier";
 	private static final String MANDJE_VIEW = "redirect:/mandje";
-//	private static final String MANDJE_BESLISSING = "redirect:/mandje/beslissing";
 
 	// @Autowired
 	// BierController(BierService bierService) {
@@ -33,10 +32,14 @@ public class BierController {
 	// }
 
 	@RequestMapping(value = "{bier}", method = RequestMethod.GET)
-	ModelAndView read(@PathVariable Bier bier) {
+	ModelAndView read(@PathVariable Bier bier, HttpServletRequest request) {
 		ModelAndView modelAndView = new ModelAndView(BIER_VIEW);
 		if (bier != null) {
-			modelAndView.addObject(bier).addObject(new BierInMandje());
+			modelAndView
+					.addObject(bier)
+					.addObject(new BierInMandje())
+					.addObject("bierAlInMandje",
+							checkIfBierAlInMandje(bier, request));
 		}
 		return modelAndView;
 	}
@@ -46,7 +49,11 @@ public class BierController {
 			BindingResult bindingResult, HttpServletRequest request,
 			RedirectAttributes redirectAttributes) {
 		if (bindingResult.hasErrors()) {
-			return new ModelAndView(BIER_VIEW, "bier", bierInMandje.getBier());
+			return new ModelAndView(BIER_VIEW, "bier", bierInMandje.getBier())
+					.addObject(
+							"bierAlInMandje",
+							checkIfBierAlInMandje(bierInMandje.getBier(),
+									request));
 		}
 		Bier bier = bierInMandje.getBier();
 		long bierid = bier.getBierNr();
@@ -58,11 +65,41 @@ public class BierController {
 					.getAttribute("mandje");
 			if (bierIdsEnAantalInMandje == null) {
 				bierIdsEnAantalInMandje = new HashMap<Long, Integer>();
+			}
+			if (bierIdsEnAantalInMandje.containsKey(bierid)) {
+				String bierAantalVervangen = request
+						.getParameter("bierAantalVervangen");
+				String bierAantalToevoegen = request
+						.getParameter("bierAantalToevoegen");
+				if (bierAantalVervangen != null) {
+					bierIdsEnAantalInMandje.put(bierid,
+							bierIdsEnAantalInMandje.get(bierid) + aantal);
+				} else if (bierAantalToevoegen != null) {
+					bierIdsEnAantalInMandje.put(bierid, aantal);
+				} else {
+					return new ModelAndView(BIER_VIEW, "bier",
+							bierInMandje.getBier());
+				}
 			} else {
 				bierIdsEnAantalInMandje.put(bierid, aantal);
-				session.setAttribute("mandje", bierIdsEnAantalInMandje);
 			}
+			session.setAttribute("mandje", bierIdsEnAantalInMandje);
 		}
 		return new ModelAndView(MANDJE_VIEW);
+	}
+
+	private boolean checkIfBierAlInMandje(Bier bier, HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		if (session != null) {
+			@SuppressWarnings("unchecked")
+			Map<Long, Integer> bierIdsEnAantalInMandje = (Map<Long, Integer>) session
+					.getAttribute("mandje");
+			if (bierIdsEnAantalInMandje == null) {
+				return false;
+			} else if (bierIdsEnAantalInMandje.containsKey(bier.getBierNr())) {
+				return true;
+			}
+		}
+		return false;
 	}
 }

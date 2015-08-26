@@ -5,6 +5,9 @@ import java.math.BigDecimal;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
+import org.springframework.format.annotation.NumberFormat;
+import org.springframework.format.annotation.NumberFormat.Style;
+
 import be.vdab.entities.Bier;
 
 public class BierInMandje {
@@ -38,6 +41,7 @@ public class BierInMandje {
 		this.bier = bier;
 	}
 
+	@NumberFormat(style = Style.NUMBER)
 	public BigDecimal getTotaal() {
 		return bier.getPrijs().multiply(new BigDecimal(aantal));
 	}
