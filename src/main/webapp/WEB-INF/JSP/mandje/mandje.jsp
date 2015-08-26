@@ -42,7 +42,7 @@
 					</div>
 					<p class="totaalPrijs">Totaal: <strong>&euro;${mandjeTotaal}</strong></p>
 					<div class="clear"></div>
-					<c:url value='/mandje' var='url' />
+					<c:url value='/mandje/bestelbon' var='url' />
 					<form:form action='${url}' commandName='bestelbon' id='toevoegform'>
 						<jsp:include page='mandjeformfields.jsp' />
 						<div class='keepme'>

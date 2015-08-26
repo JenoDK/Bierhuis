@@ -323,6 +323,18 @@ a {
 	font-weight: bold;
 }
 
+.pagineren {
+	font-size: 20px;
+	word-spacing: 7px;
+}
+.paginaImg {
+	vertical-align: middle;
+}
+.paginaCijfers {
+	vertical-align: middle;
+}
+
+
 /* Targetting Webkit browsers only. FF will show the dropdown arrow with so much padding. */
 @media screen and (-webkit-min-device-pixel-ratio:0) {
 	select {

@@ -1,6 +1,8 @@
 package be.vdab.web;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -24,11 +26,11 @@ public class BrouwerController {
 	}
 	
 	@RequestMapping(method = RequestMethod.GET)
-	ModelAndView findAll() {
-		return new ModelAndView(BROUWERS_VIEW, "brouwers",
-				brouwerService.findAll()).addObject("aantalBrouwers",
-						brouwerService.findAantalBrouwers());
-		
+	ModelAndView findAll(@PageableDefault(value = 15) Pageable pageable) {
+		return new ModelAndView(BROUWERS_VIEW, "page",
+				brouwerService.findAll(pageable)).addObject("aantalBrouwers",
+				brouwerService.findAantalBrouwers());
+
 	}
 	
 	@RequestMapping(value = "{brouwer}", method = RequestMethod.GET)

@@ -7,6 +7,7 @@ import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -27,7 +28,7 @@ public class Soort implements Serializable {
 	private String naam;
 
 	// bi-directional many-to-one association to Bieren
-	@OneToMany(mappedBy = "soort")
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "soort")
 	private Set<Bier> bieren;
 
 	public Soort() {

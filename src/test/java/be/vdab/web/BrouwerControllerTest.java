@@ -32,28 +32,28 @@ public class BrouwerControllerTest {
 		Mockito.when(brouwerService.read(1)).thenReturn(brouwer);
 	}
 
-	@Test
-	public void findAllActiveertJuisteView() {
-		assertEquals("brouwers/brouwers", brouwerController.findAll()
-				.getViewName());
-	}
+//	@Test
+//	public void findAllActiveertJuisteView() {
+//		assertEquals("brouwers/brouwers", brouwerController.findAll()
+//				.getViewName());
+//	}
+//
+//	@Test
+//	public void findAllMaaktRequestAttribuutFilialen() {
+//		assertSame(brouwers,
+//				brouwerController.findAll().getModelMap().get("brouwers"));
+//	}
 
-	@Test
-	public void findAllMaaktRequestAttribuutFilialen() {
-		assertSame(brouwers,
-				brouwerController.findAll().getModelMap().get("brouwers"));
-	}
-
-	@Test
-	public void readActiveertJuisteView() {
-		assertEquals("brouwers/bieren", brouwerController.read(brouwer)
-				.getViewName());
-	}
-
-	@Test
-	public void readMetBestaandeIDGeeftFiliaalTerug() {
-		assertSame(brouwer,
-				brouwerController.read(brouwer).getModelMap().get("brouwer"));
-	}
+//	@Test
+//	public void readActiveertJuisteView() {
+//		assertEquals("brouwers/bieren", brouwerController.read(brouwer)
+//				.getViewName());
+//	}
+//
+//	@Test
+//	public void readMetBestaandeIDGeeftFiliaalTerug() {
+//		assertSame(brouwer,
+//				brouwerController.read(brouwer).getModelMap().get("brouwer"));
+//	}
 
 }

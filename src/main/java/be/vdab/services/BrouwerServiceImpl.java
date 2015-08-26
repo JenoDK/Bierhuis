@@ -3,6 +3,8 @@ package be.vdab.services;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 
 import be.vdab.dao.BrouwerDAO;
@@ -30,6 +32,11 @@ public class BrouwerServiceImpl implements BrouwerService {
 	@Override
 	public long findAantalBrouwers() {
 		return brouwerDAO.count();
+	}
+
+	@Override
+	public Page<Brouwer> findAll(Pageable pageable) {
+		return brouwerDAO.findAll(pageable);
 	}
 	
 	

@@ -35,6 +35,7 @@ public class BestelbonController {
 	private final BierService bierService;
 	private static final String BESTELBON_VIEW = "bestelbon/bestelbon";
 	private static final String MANDJE_VIEW = "mandje/mandje";
+	private static final String MANDJE_REDIRECT_VIEW = "redirect:/mandje";
 
 	@Autowired
 	BestelbonController(BestelbonService bestelbonService,
@@ -63,9 +64,9 @@ public class BestelbonController {
 				model.addAttribute("bierenInMandje", bierenInMandje)
 						.addAttribute("mandjeTotaal", totaal);
 				if (!model.containsAttribute("bestelbon")) {
-			        model.addAttribute("bestelbon", new Bestelbon());
-			    }
-						
+					model.addAttribute("bestelbon", new Bestelbon());
+				}
+
 			}
 		}
 		return MANDJE_VIEW;
@@ -76,14 +77,17 @@ public class BestelbonController {
 		binder.initDirectFieldAccess();
 	}
 
-	@RequestMapping(method = RequestMethod.POST)
-	String bestellingPlaatsen(@ModelAttribute("bestelbon") @Valid Bestelbon bestelbon,
+	@RequestMapping(value = "bestelbon", method = RequestMethod.POST)
+	String bestellingPlaatsen(
+			@ModelAttribute("bestelbon") @Valid Bestelbon bestelbon,
 			BindingResult bindingResult, HttpServletRequest request,
 			RedirectAttributes redirectAttributes) {
 		if (bindingResult.hasErrors()) {
-			redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.bestelbon", bindingResult);
+			redirectAttributes.addFlashAttribute(
+					"org.springframework.validation.BindingResult.bestelbon",
+					bindingResult);
 			redirectAttributes.addFlashAttribute("bestelbon", bestelbon);
-			return "redirect:/mandje";
+			return MANDJE_REDIRECT_VIEW;
 		}
 		HttpSession session = request.getSession();
 		if (session != null) {

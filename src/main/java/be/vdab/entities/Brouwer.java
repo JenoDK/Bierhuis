@@ -38,7 +38,7 @@ public class Brouwer implements Serializable {
 	@Embedded
 	private Adres adres;
 	// bi-directional many-to-one association to Bieren
-	@OneToMany(mappedBy = "brouwer")
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "brouwer")
 	@OrderBy("naam")
 	private Set<Bier> bieren;
 
