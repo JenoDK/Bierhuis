@@ -10,6 +10,8 @@ import javax.validation.Valid;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -22,14 +24,8 @@ import be.vdab.valueobjects.BierInMandje;
 @Controller
 @RequestMapping(value = "/bieren", produces = MediaType.TEXT_HTML_VALUE)
 public class BierController {
-	// private final BierService bierService;
 	private static final String BIER_VIEW = "bieren/bier";
 	private static final String MANDJE_VIEW = "redirect:/mandje";
-
-	// @Autowired
-	// BierController(BierService bierService) {
-	// this.bierService = bierService;
-	// }
 
 	@RequestMapping(value = "{bier}", method = RequestMethod.GET)
 	ModelAndView read(@PathVariable Bier bier, HttpServletRequest request) {
@@ -42,6 +38,11 @@ public class BierController {
 							checkIfBierAlInMandje(bier, request));
 		}
 		return modelAndView;
+	}
+
+	@InitBinder("bierInMandje")
+	void initBinderBierInMandje(WebDataBinder binder) {
+		binder.initDirectFieldAccess();
 	}
 
 	@RequestMapping(value = "toevoegen", method = RequestMethod.POST)
@@ -67,18 +68,21 @@ public class BierController {
 				bierIdsEnAantalInMandje = new HashMap<Long, Integer>();
 			}
 			if (bierIdsEnAantalInMandje.containsKey(bierid)) {
-				String bierAantalVervangen = request
-						.getParameter("bierAantalVervangen");
 				String bierAantalToevoegen = request
 						.getParameter("bierAantalToevoegen");
-				if (bierAantalVervangen != null) {
+				String bierAantalVervangen = request
+						.getParameter("bierAantalVervangen");
+				if (bierAantalToevoegen != null) {
 					bierIdsEnAantalInMandje.put(bierid,
 							bierIdsEnAantalInMandje.get(bierid) + aantal);
-				} else if (bierAantalToevoegen != null) {
+				} else if (bierAantalVervangen != null) {
 					bierIdsEnAantalInMandje.put(bierid, aantal);
 				} else {
 					return new ModelAndView(BIER_VIEW, "bier",
-							bierInMandje.getBier());
+							bierInMandje.getBier()).addObject(
+							"bierAlInMandje",
+							checkIfBierAlInMandje(bierInMandje.getBier(),
+									request));
 				}
 			} else {
 				bierIdsEnAantalInMandje.put(bierid, aantal);

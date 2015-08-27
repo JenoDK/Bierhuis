@@ -29,9 +29,10 @@ public class BrouwerControllerTest {
 		brouwerController = new BrouwerController(brouwerService);
 		brouwer = new Brouwer("Jeno", new BigDecimal(1000), new Adres(
 				"straat1", "huisnr1", 1, "gemeente1"));
+		brouwers.add(brouwer);
 		Mockito.when(brouwerService.read(1)).thenReturn(brouwer);
 	}
-
+//  Deze testen in comment omdat findAll() method een Pageable parameter nodig heeft
 //	@Test
 //	public void findAllActiveertJuisteView() {
 //		assertEquals("brouwers/brouwers", brouwerController.findAll()
@@ -44,16 +45,17 @@ public class BrouwerControllerTest {
 //				brouwerController.findAll().getModelMap().get("brouwers"));
 //	}
 
-//	@Test
-//	public void readActiveertJuisteView() {
-//		assertEquals("brouwers/bieren", brouwerController.read(brouwer)
-//				.getViewName());
-//	}
-//
-//	@Test
-//	public void readMetBestaandeIDGeeftFiliaalTerug() {
-//		assertSame(brouwer,
-//				brouwerController.read(brouwer).getModelMap().get("brouwer"));
-//	}
+	@Test
+	public void readActiveertJuisteView() {
+		assertEquals("brouwers/bieren", brouwerController.read(brouwer)
+				.getViewName());
+	}
+
+	@Test
+	public void readMetBestaandeIDGeeftBrouwerTerug() {
+		assertSame(brouwer,
+				brouwerController.read(brouwer).getModelMap().get("brouwer"));
+	}
+	
 
 }

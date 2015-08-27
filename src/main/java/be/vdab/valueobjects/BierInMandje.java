@@ -29,16 +29,8 @@ public class BierInMandje {
 		return aantal;
 	}
 
-	public void setAantal(int aantal) {
-		this.aantal = aantal;
-	}
-
 	public Bier getBier() {
 		return bier;
-	}
-
-	public void setBier(Bier bier) {
-		this.bier = bier;
 	}
 
 	@NumberFormat(style = Style.NUMBER)

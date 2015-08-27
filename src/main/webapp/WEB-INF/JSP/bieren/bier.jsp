@@ -31,7 +31,7 @@
 						method='post' commandName='bierInMandje' id='toevoegform'>
 
 						<form:input path='aantal' name='aantal' placeholder="Aantal"
-							type="number" required='required' />
+							type="number" required='required' min='1'/>
 						<form:errors cssClass="error" path="aantal" delimiter=', ' />
 
 						<form:input path='bier' type="hidden" value="${bier.bierNr}" />
@@ -41,12 +41,13 @@
 						</c:if>
 						<div class='keepme'><c:choose>
 								<c:when test="${bierAlInMandje}">
-									<div class="keep-registrerenbutton"><input type='submit'
-										name="bierAantalVervangen" value='Aantal toevoegen'
-										id='toevoegknop'></div>
+									<div class="keep-registrerenbutton">
+										<input name="bierAantalToevoegen" type='submit'
+											value='Aantal toevoegen'>
+									</div>
 									<div class="keep-registrerenbutton tweede"><input
-										name="bierAantalToevoegen" type='submit'
-										value='Aantal vervangen' id='toevoegknop'></div>
+										name="bierAantalVervangen" type='submit'
+										value='Aantal vervangen'></div>
 								</c:when>
 								<c:otherwise>
 									<div class="keep-registrerenbutton"><input type='submit'

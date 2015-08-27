@@ -17,37 +17,49 @@
 
 		<div class="login-top">
 			<h2>Mandje</h2>
-	</div>
-		<div class="login-bottom"><c:choose>
+		</div>
+		<div class="login-bottom">
+			<c:choose>
 				<c:when test="${not empty bierenInMandje}">
 					<div class="mandjeTable">
-						<table>
-							<tbody>
-								<tr>
-									<td>Bier</td>
-									<td>Prijs</td>
-									<td>Aantal</td>
-									<td>Te betalen</td>
-							</tr>
-								<c:forEach items='${bierenInMandje}' var='bierInMandje'>
+						<form method="post" action="<c:url value='/mandje'/>">
+							<table>
+								<tbody>
 									<tr>
-										<td>${bierInMandje.bier.naam}</td>
-										<td>&euro;${bierInMandje.bier.prijs}</td>
-										<td>${bierInMandje.aantal}</td>
-										<td>&euro;${bierInMandje.totaal}</td>
+										<td>Bier</td>
+										<td>Prijs</td>
+										<td>Aantal</td>
+										<td>Te betalen</td>
+										<td><div class="keep-loginbutton"><input type='submit' value='Verwijderen'
+											name='verwijderknop'></div></td>
 									</tr>
-								</c:forEach>
-						</tbody>
-					</table>
+									<c:forEach items='${bierenInMandje}' var='bierInMandje'>
+										<tr>
+											<td>${bierInMandje.bier.naam}</td>
+											<td>&euro;${bierInMandje.bier.prijs}</td>
+											<td>${bierInMandje.aantal}</td>
+											<td>&euro;${bierInMandje.totaal}</td>
+											<td><label> <input type='checkbox' name='id'
+													value='${bierInMandje.bier.bierNr}'>
+											</label></td>
+										</tr>
+									</c:forEach>
+								</tbody>
+							</table>
+						</form>
 					</div>
-					<p class="totaalPrijs">Totaal: <strong>&euro;${mandjeTotaal}</strong></p>
+					<p class="totaalPrijs">
+						Totaal: <strong>&euro;${mandjeTotaal}</strong>
+					</p>
 					<div class="clear"></div>
 					<c:url value='/mandje/bestelbon' var='url' />
 					<form:form action='${url}' commandName='bestelbon' id='toevoegform'>
 						<jsp:include page='mandjeformfields.jsp' />
 						<div class='keepme'>
-							<div class="keep-registrerenbutton"><input type='submit'
-								value='Als bestelbon bevestigen' id='toevoegknop'></div>
+							<div class="keep-registrerenbutton">
+								<input type='submit' value='Als bestelbon bevestigen'
+									id='toevoegknop'>
+							</div>
 							<div class="clear"></div>
 						</div>
 					</form:form>
@@ -55,8 +67,9 @@
 				<c:otherwise>
 					<h2>Mandje is leeg</h2>
 				</c:otherwise>
-			</c:choose></div>
-</div>
+			</c:choose>
+		</div>
+	</div>
 	<script>
 		document.getElementById('toevoegform').onsubmit = function() {
 			document.getElementById('toevoegknop').disabled = true;

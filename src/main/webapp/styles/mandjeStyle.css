@@ -118,3 +118,7 @@
 	float: right;
 	margin-right: 8px;
 }
+
+.keep-loginbutton input[type="submit"] {
+	font-size: 12px;
+}

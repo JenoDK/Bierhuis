@@ -116,5 +116,23 @@ public class BestelbonController {
 		redirectAttributes.addAttribute("bestelbon", bestelbon.getBonNr());
 		return BESTELBON_VIEW;
 	}
+	
+	@RequestMapping(method = RequestMethod.POST)
+	String bierVerwijderenUitMandje(HttpServletRequest request){
+		if (request.getParameter("verwijderknop") != null) {
+			if (request.getParameterValues("id") != null) {
+				HttpSession session = request.getSession();
+				@SuppressWarnings("unchecked")
+				Map<Long, Integer> mandje = (Map<Long, Integer>) session
+						.getAttribute("mandje");
+				for (String nummerAlsString : request.getParameterValues("id")) {
+					long id = Long.parseLong(nummerAlsString);
+					mandje.remove(id);
+				}
+				session.setAttribute("mandje", mandje);
+			}
+		}
+		return MANDJE_REDIRECT_VIEW;
+	}
 
 }
