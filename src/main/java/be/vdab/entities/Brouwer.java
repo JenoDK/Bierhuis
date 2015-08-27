@@ -14,10 +14,6 @@ import java.util.Collections;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
-/**
- * The persistent class for the brouwers database table.
- * 
- */
 @Entity
 @Table(name = "brouwers")
 public class Brouwer implements Serializable {
